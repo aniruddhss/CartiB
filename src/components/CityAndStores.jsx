@@ -7,7 +7,7 @@ const Header = () => (
         <h1 className="text-6xl font-extrabold text-white px-6 py-5">CartiB</h1>
     </div>
   );
-  const Bod = () => (
+const Bod = () => (
     <div className="w-full h-[85%] bg-white flex flex-col justify-center items-center">
         <div className='flex space-x-[20vw] mb-[10%]'> 
             <CityDropdown />

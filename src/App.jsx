@@ -1,5 +1,6 @@
 import React from "react";
 import CityAndStores from "./components/CityAndStores";
+import ShoppingPage from "./Pages/ShoppingPage";
 
 
 const Header = () => (
@@ -29,7 +30,13 @@ function App() {
       </div>
       
     </div>
-    <CityAndStores/>
+    <div>
+
+      <CityAndStores/>
+    </div>
+    <div>
+      <ShoppingPage/>
+    </div>
     </>
   );
 }
