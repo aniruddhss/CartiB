@@ -13,17 +13,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up SSH key
-      run: |
-        echo "${{ secrets.EC2_SSH_KEY }}" > first-keypair.pem
-        chmod 400 first-keypair.pem  # Ensure the key is accessible
+    # - name: Set up SSH key
+    #   run: |
+    #     echo "${{ secrets.EC2_SSH_KEY }}" > first-keypair.pem
+    #     chmod 400 first-keypair.pem  # Ensure the key is accessible
 
     - name: SSH into EC2 and deploy
       uses: appleboy/ssh-action@v0.1.0
       with:
         host: ${{ secrets.EC2_HOST }}  # Set your EC2 instance's IP in GitHub secrets
         username: ${{ secrets.EC2_USERNAME }}  # Usually ec2-user for Amazon Linux
-        key: first-keypair.pem
+        key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           cd /home/ec2-user/project-cartib  # Update with the correct project directory path
           git pull origin main  # Pull latest code from the main branch
