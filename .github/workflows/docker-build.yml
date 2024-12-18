@@ -25,7 +25,7 @@ jobs:
 
 
     - name: Build Docker Image
-      run: docker build -f ./project-cartib/Dockerfile -t aniruddhss/cartib:latest ./project-cartib
+      run: docker build -f ./Dockerfile -t aniruddhss/cartib:latest .
 
     - name: Push Docker Image
       run: docker push aniruddhss/cartib:latest
