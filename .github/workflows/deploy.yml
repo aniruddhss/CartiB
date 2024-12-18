@@ -13,20 +13,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # - name: Set up SSH key
-    #   run: |
-    #     echo "${{ secrets.EC2_SSH_KEY }}" > first-keypair.pem
-    #     chmod 400 first-keypair.pem  # Ensure the key is accessible
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.EC2_SSH_KEY }}" > private-key.pem
+        chmod 600 private-key.pem  # Ensure proper permissions for the key
 
     - name: SSH into EC2 and deploy
       uses: appleboy/ssh-action@v0.1.0
       with:
-        host: ${{ secrets.EC2_HOST }}  # Set your EC2 instance's IP in GitHub secrets
-        username: ${{ secrets.EC2_USERNAME }}  # Usually ec2-user for Amazon Linux
-        key: ${{ secrets.EC2_SSH_KEY }}
+        host: ${{ secrets.EC2_HOST }}  # EC2 public IP
+        username: ${{ secrets.EC2_USERNAME }}  # ec2-user for Amazon Linux
+        key: private-key.pem
         script: |
-          cd /home/ec2-user/project-cartib  # Update with the correct project directory path
-          git pull origin main  # Pull latest code from the main branch
+          cd /home/ec2-user/project-cartib  # Ensure this path is correct
+          git pull origin main  # Pull latest code
           docker-compose down  # Stop any existing containers
           docker-compose up --build -d  # Rebuild and start containers in detached mode
-
