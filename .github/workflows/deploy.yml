@@ -24,6 +24,7 @@ jobs:
         host: ${{ secrets.EC2_HOST }}  # EC2 public IP
         username: ${{ secrets.EC2_USERNAME }}  # ec2-user for Amazon Linux
         key: private-key.pem
+        debug: true
         script: |
           cd /home/ec2-user/project-cartib  # Ensure this path is correct
           git pull origin main  # Pull latest code
