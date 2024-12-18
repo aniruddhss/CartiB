@@ -17,7 +17,7 @@ Follow the steps below to set up the project locally.
 Clone the CartiB repository to your local machine:
 
 ```bash
-git clone https://github.com/rx7ankit/CartiB.git
+git clone https://github.com/aniruddhss/CartiB.git
 ```
 
 ### 2. Navigate to the Project Directory
