@@ -23,7 +23,7 @@ jobs:
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        key: ${{ secrets.EC2_SSH_KEY }}
         debug: true
         script: |
           cd /home/***/project-cartib
