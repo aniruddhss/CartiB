@@ -26,7 +26,7 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         debug: true
         script: |
-          cd /home/***/project-cartib
+          cd /home/ec2-user/project-cartib
           git pull origin main
           docker-compose down
           docker-compose up --build -d
