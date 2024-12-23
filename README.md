@@ -2,6 +2,9 @@
 
 CartiB is a price comparison web app that helps users find the best prices for products from different online stores like Blinkit, Swiggy Instamart, Ondoor, and Bigbasket.
 
+
+The website is deployed at http://52.66.239.81
+
 ## Features
 
 - Price comparison from multiple stores.
