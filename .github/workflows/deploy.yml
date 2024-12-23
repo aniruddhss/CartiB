@@ -19,7 +19,7 @@ jobs:
     #     chmod 600 private-key.pem  # Ensure proper permissions for the key
 
     - name: SSH into EC2 and deploy
-      uses: appleboy/ssh-action@v0.1.0
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
