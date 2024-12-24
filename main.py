@@ -47,6 +47,7 @@ async def handle_location(
 product_name = ""
 
 
+
 @app.get("/home", response_class=HTMLResponse)
 async def home_page(request: Request):
     return templates.TemplateResponse(
@@ -67,18 +68,10 @@ async def search(request: Request, product: str = Form(...)):
     with ThreadPoolExecutor() as executor:
         future1 = executor.submit(blinkit_data, product_name, location)
         future2 = executor.submit(swiggy_data, product_name, location)
-
+        
         # Collect results
-        try:
-
-            result1 = future1.result()
-        except:
-            result1 = ""
-
-        try:
-            result2 = future2.result()
-        except:
-            result2 = ""
+        result1 = future1.result()
+        result2 = future2.result()
 
     data = result1 + result2
 
