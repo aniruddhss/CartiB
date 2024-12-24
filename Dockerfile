@@ -1,12 +1,14 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim
+# Use Fedora as the base image
+FROM fedora:36
 
 # Set environment variables to prevent Python from writing .pyc files and buffering output
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-# Install Chrome, ChromeDriver, and required dependencies using dnf
 
+# Install Python, Chrome, ChromeDriver, and required dependencies
 RUN dnf update -y && dnf install -y \
+    python3 \
+    python3-pip \
     wget \
     unzip \
     libX11-xcb \
@@ -29,17 +31,16 @@ RUN dnf update -y && dnf install -y \
     && chmod +x /usr/local/bin/chromedriver \
     && dnf clean all
 
-
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container
+# Copy application files
 COPY . /app
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Expose port 80 for the FastAPI app
+# Expose port for the FastAPI app
 EXPOSE 80
 
 # Run the FastAPI app using Uvicorn
