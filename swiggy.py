@@ -1,14 +1,22 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-
 
 def swiggy_data(product_name: str, location: str):
 
     axis_location = [23.211754, 77.433601]
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+    # Set up Chrome options for headless mode
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")  # Required for headless mode on Windows
+    chrome_options.add_argument("--no-sandbox")  # Recommended for containerized environments
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     driver.set_window_size(1920, 1080)
 
     # Open the webpage with dynamic product search and axis_location
