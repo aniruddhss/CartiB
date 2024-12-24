@@ -1,46 +1,36 @@
-# Use Fedora as the base image
-FROM fedora:36
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 
 # Set environment variables to prevent Python from writing .pyc files and buffering output
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Install Python, Chrome, ChromeDriver, and required dependencies
-RUN dnf update -y && dnf install -y \
-    python3 \
-    python3-pip \
+# Install system dependencies for Chrome and Selenium
+RUN apt-get update && apt-get install -y \
     wget \
+    gnupg \
     unzip \
-    libX11-xcb \
-    nss \
-    libXcomposite \
-    libXcursor \
-    libXdamage \
-    libXrandr \
-    libXtst \
-    libstdc++ \
-    pango \
-    gtk3 \
-    liberation-fonts \
-    alsa-lib \
-    && wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
-    && dnf install -y ./google-chrome-stable_current_x86_64.rpm \
-    && wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip \
+    && wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list' \
+    && apt-get update && apt-get install -y \
+    google-chrome-stable
+
+# Install ChromeDriver
+RUN wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip \
     && unzip chromedriver_linux64.zip \
     && mv chromedriver /usr/local/bin/ \
-    && chmod +x /usr/local/bin/chromedriver \
-    && dnf clean all
+    && chmod +x /usr/local/bin/chromedriver
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy application files
+# Copy the current directory contents into the container
 COPY . /app
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port for the FastAPI app
+# Expose port 80 for the FastAPI app
 EXPOSE 80
 
 # Run the FastAPI app using Uvicorn
