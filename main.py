@@ -65,14 +65,20 @@ async def search(request: Request, product: str = Form(...)):
 
     # Execute tasks in parallel
     with ThreadPoolExecutor() as executor:
-        future1 = executor.submit(blinkit_data, product_name, location)
+        # future1 = executor.submit(blinkit_data, product_name, location)
         future2 = executor.submit(swiggy_data, product_name, location)
-        
-        # Collect results
-        result1 = future1.result()
-        result2 = future2.result()
+        # try:
+        #     # Collect results
+        #     result1 = future1.result()
+        # except:
+        #     result1 = []
 
-    data = result1 + result2
+        try:
+            result2 = future2.result()
+        except:
+            result2 = []
+
+    data = result2
 
     return templates.TemplateResponse(
         "home.html", {"request": request,
