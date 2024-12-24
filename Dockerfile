@@ -5,30 +5,6 @@ FROM python:3.9-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Install system dependencies for Chrome and Selenium
-RUN yum update -y && yum install -y \
-    wget \
-    unzip \
-    libX11-xcb \
-    nss \
-    libXcomposite \
-    libXcursor \
-    libXdamage \
-    libXrandr \
-    libXtst \
-    libstdc++ \
-    pango \
-    gtk3 \
-    liberation-fonts \
-    alsa-lib \
-    && wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm \
-    && yum localinstall -y ./google-chrome-stable_current_x86_64.rpm
-
-# Install ChromeDriver
-RUN wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip \
-    && unzip chromedriver_linux64.zip \
-    && mv chromedriver /usr/local/bin/ \
-    && chmod +x /usr/local/bin/chromedriver
 
 # Set the working directory in the container
 WORKDIR /app
