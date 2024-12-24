@@ -47,7 +47,6 @@ async def handle_location(
 product_name = ""
 
 
-
 @app.get("/home", response_class=HTMLResponse)
 async def home_page(request: Request):
     return templates.TemplateResponse(
