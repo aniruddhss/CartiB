@@ -5,7 +5,7 @@ FROM python:3.9-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN yum install chromium-driver
+RUN sudo dnf install chromium-driver
 
 
 # Set the working directory in the container
