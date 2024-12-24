@@ -2,9 +2,9 @@ from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from blinkit import blinkit_data
+# from blinkit import blinkit_data
 from swiggy import swiggy_data
-from concurrent.futures import ThreadPoolExecutor
+# from concurrent.futures import ThreadPoolExecutor
 
 app = FastAPI()
 
@@ -64,21 +64,21 @@ async def search(request: Request, product: str = Form(...)):
     location = "indrapuri bhopal"
 
     # Execute tasks in parallel
-    with ThreadPoolExecutor() as executor:
+    # with ThreadPoolExecutor() as executor:
         # future1 = executor.submit(blinkit_data, product_name, location)
-        future2 = executor.submit(swiggy_data, product_name, location)
+        # future2 = executor.submit(swiggy_data, product_name, location)
         # try:
         #     # Collect results
         #     result1 = future1.result()
         # except:
         #     result1 = []
 
-        try:
-            result2 = future2.result()
-        except:
-            result2 = []
+        # try:
+        #     result2 = future2.result()
+        # except:
+        #     result2 = []
 
-    data = result2
+    data = swiggy_data(product_name=product_name, location=location)
 
     return templates.TemplateResponse(
         "home.html", {"request": request,
