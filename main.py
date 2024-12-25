@@ -78,7 +78,8 @@ async def search(request: Request, product: str = Form(...)):
         except:
             result2 = []
 
-    data = swiggy_data(product_name=product_name, location=location)
+    # data = swiggy_data(product_name=product_name, location=location)
+    data = result1 + result2
 
     return templates.TemplateResponse(
         "home.html", {"request": request,
