@@ -16,7 +16,9 @@ def swiggy_data(product_name: str, location: str):
     chrome_options.add_argument("--no-sandbox")  # Recommended for containerized environments
     chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager(version="131.0.6778.204").install()), options=chrome_options)
+
     driver.set_window_size(1920, 1080)
 
     # Open the webpage with dynamic product search and axis_location
