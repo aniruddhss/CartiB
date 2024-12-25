@@ -1,11 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
+
 import time
 
-
+# from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromiumService
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 
 
 def swiggy_data(product_name: str, location: str):
@@ -22,12 +24,9 @@ def swiggy_data(product_name: str, location: str):
     chrome_options.binary_location = "/usr/bin/google-chrome-stable"  # Set the path to the Chrome binary
 
     # Use webdriver-manager to install the correct version of chromedriver for Google Chrome
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-
-    
-    # driver = webdriver.Chrome(service=Service(ChromeDriverManager(version="131.0.6778.204").install()), options=chrome_options)
-    # service = Service("/usr/bin/chromium-driver")  # Path to chromium driver
-    # driver = webdriver.Chrome(service=service, options=chrome_options)
+    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+    # Specify Chromium as the browser type
+    driver = webdriver.Chrome(service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()), options=chrome_options)
 
     driver.set_window_size(1920, 1080)
 
