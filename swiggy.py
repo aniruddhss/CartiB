@@ -1,12 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-# selenium 4
-from selenium.webdriver.chrome.service import Service as ChromiumService
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.os_manager import ChromeType
+
+
 
 
 def swiggy_data(product_name: str, location: str):
@@ -19,9 +18,13 @@ def swiggy_data(product_name: str, location: str):
     chrome_options.add_argument("--disable-gpu")  # Required for headless mode on Windows
     chrome_options.add_argument("--no-sandbox")  # Recommended for containerized environments
     chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    # Use the installed Google Chrome binary
+    chrome_options.binary_location = "/usr/bin/google-chrome-stable"  # Set the path to the Chrome binary
 
-    # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-    driver = webdriver.Chrome(service=ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()))      
+    # Use webdriver-manager to install the correct version of chromedriver for Google Chrome
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
+    
     # driver = webdriver.Chrome(service=Service(ChromeDriverManager(version="131.0.6778.204").install()), options=chrome_options)
     # service = Service("/usr/bin/chromium-driver")  # Path to chromium driver
     # driver = webdriver.Chrome(service=service, options=chrome_options)
