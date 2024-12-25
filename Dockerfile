@@ -6,18 +6,15 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Install system dependencies for Chromium and Selenium
-# RUN apt-get update && apt-get install -y \
-#     wget \
-#     unzip \
-#     chromium \
-#     chromium-driver \
-#     && apt-get clean
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
-    chromium=131.* \
-    chromium-driver=131.* \
+    chromium \
+    chromium-driver \
     && apt-get clean
+
+
+
 
 
 # Set the working directory in the container
