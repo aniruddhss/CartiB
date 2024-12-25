@@ -20,9 +20,7 @@ def swiggy_data(product_name: str, location: str):
     chrome_options.add_argument("--disable-gpu")  # Required for headless mode on Windows
     chrome_options.add_argument("--no-sandbox")  # Recommended for containerized environments
     chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
-    # Use the installed Google Chrome binary
-    chrome_options.binary_location = "/usr/bin/google-chrome-stable"  # Set the path to the Chrome binary
-
+    
     # Use webdriver-manager to install the correct version of chromedriver for Google Chrome
     # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
     # Specify Chromium as the browser type
