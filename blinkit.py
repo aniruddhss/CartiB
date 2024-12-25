@@ -1,14 +1,22 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
 def blinkit_data(product_name: str, location: str):
     # Setup the WebDriver
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")  # Required for headless mode on Windows
+    chrome_options.add_argument("--no-sandbox")  # Recommended for containerized environments
+    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    
+    
+    driver = webdriver.Chrome(options=chrome_options)    
     driver.set_window_size(1920, 1080)
 
     product_data = []  # List to store product information
