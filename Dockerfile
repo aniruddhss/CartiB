@@ -11,7 +11,12 @@ RUN apt-get update && apt-get install -y \
     unzip \
     chromium \
     chromium-driver \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/tmp/*
+
+
+
 
 # RUN apt-get update && apt-get install -y \
 #     wget \
