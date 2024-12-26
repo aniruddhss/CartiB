@@ -8,16 +8,17 @@ def swiggy_data(product_name: str, location: str):
 
     axis_location = [23.211754, 77.433601]
 
-    # Set up Chrome options for headless mode
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-gpu")  # Required for headless mode on Windows
-    chrome_options.add_argument("--no-sandbox")  # Recommended for containerized environments
-    chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    chrome_options.add_argument("--disable-gpu")  
+    chrome_options.add_argument("--no-sandbox") 
+    chrome_options.add_argument("--disable-dev-shm-usage") 
+    chrome_options.add_argument("--use-gl=swiftshader")
+    chrome_options.add_argument("--disable-software-rasterizer")
+
     
     
     driver = webdriver.Chrome(options=chrome_options)
-
     driver.set_window_size(1920, 1080)
 
     # Open the webpage with dynamic product search and axis_location
@@ -25,7 +26,7 @@ def swiggy_data(product_name: str, location: str):
 
     # Zoom out to 40%
     driver.execute_script("document.body.style.zoom='40%'")
-    time.sleep(3)
+    time.sleep(1)
 
     # Locate product containers
     product_containers = driver.find_elements(
