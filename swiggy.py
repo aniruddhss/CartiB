@@ -13,9 +13,6 @@ def swiggy_data(product_name: str, location: str):
     chrome_options.add_argument("--disable-gpu")  
     chrome_options.add_argument("--no-sandbox") 
     chrome_options.add_argument("--disable-dev-shm-usage") 
-    chrome_options.add_argument("--use-gl=swiftshader")
-    chrome_options.add_argument("--disable-software-rasterizer")
-    # chrome_options.add_argument("user-agent= Chromium/91.0.4472.124")
     
     
     driver = webdriver.Chrome(options=chrome_options)
