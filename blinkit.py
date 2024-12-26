@@ -1,13 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
 
 
 def blinkit_data(product_name: str, location: str):
+    axis_location = [23.211754, 77.433601]
     # Setup Chrome options
     chrome_options = Options()
     # Comment the next line during debugging
@@ -27,39 +25,9 @@ def blinkit_data(product_name: str, location: str):
 
     try:
         print("Opening Blinkit homepage...")
-        driver.get("https://blinkit.com/")
-        wait = WebDriverWait(driver, 15)
+        driver.get(
+            f'https://blinkit.com/s/?q={product_name}&lat={axis_location[0]}&lon={axis_location[1]}')
 
-        # Select delivery location
-        try:
-            print("Waiting for location input field...")
-            location_input = wait.until(EC.presence_of_element_located(
-                (By.CSS_SELECTOR, "[placeholder='search delivery location']")
-            ))
-            print("Location input field found.")
-            location_input.click()
-            location_input.send_keys(location)
-            time.sleep(2)
-
-            # Trigger suggestions
-            print("Triggering location suggestions...")
-            location_input.send_keys(Keys.SPACE)
-            time.sleep(2)
-
-            # Select the first suggestion
-            first_suggestion = wait.until(EC.presence_of_element_located(
-                (By.CSS_SELECTOR, "div.LocationSearchList__LocationLabel-sc-93rfr7-2.FUlwF")
-            ))
-            print("Selecting the first suggestion...")
-            first_suggestion.click()
-            time.sleep(2)
-        except Exception as e:
-            print("Error selecting location:", e)
-            return product_data
-
-        # Search for the product
-        print(f"Searching for product: {product_name}...")
-        driver.get(f"https://blinkit.com/s/?q={product_name}")
         time.sleep(3)
 
         # Scrape product details
