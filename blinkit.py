@@ -12,9 +12,9 @@ def blinkit_data(product_name: str, location: str):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--use-gl=swiftshader") 
     chrome_options.add_argument("--disable-software-rasterizer")
-
     chrome_options.add_argument("user-agent= Chromium/91.0.4472.124")
 
 
@@ -23,10 +23,12 @@ def blinkit_data(product_name: str, location: str):
 
     # Open the webpage with dynamic product search and axis_location
     driver.get(f'https://blinkit.com/s/?q={product_name}&lat={axis_location[0]}&lon={axis_location[1]}')
+
     driver.execute_script("document.body.style.zoom='40%'")
     time.sleep(3) 
 
     product_containers = driver.find_elements(By.CSS_SELECTOR, '.Product__UpdatedPlpProductContainer-sc-11dk8zk-0')
+    
     product_data = []
 
     for product in product_containers:
