@@ -5,6 +5,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 # from webdriver_manager.chrome import ChromeDriverManager
 import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 def blinkit_data(product_name: str, location: str):
@@ -13,11 +15,8 @@ def blinkit_data(product_name: str, location: str):
     chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_argument("start-maximized")
-    # chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chromium/91.0.4472.124 Safari/537.36")
 
-    chrome_options.add_argument("--enable-javascript")
-    chrome_options.add_argument("--font-render-hinting=none")
     chrome_options.add_argument("--headless")
     # # Required for headless mode on Windows
     chrome_options.add_argument("--disable-gpu")
@@ -37,7 +36,8 @@ def blinkit_data(product_name: str, location: str):
 
         # Step 1: Set the location
         try:
-            location_input = driver.find_element(By.NAME, "select-locality")
+            location_input = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.NAME, "select-locality")))
             location_input.click()
 
             # Type delivery location into the input field
