@@ -13,7 +13,9 @@ def blinkit_data(product_name: str, location: str):
     chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     chrome_options.add_argument("start-maximized")
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+    # chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chromium/91.0.4472.124 Safari/537.36")
+
     chrome_options.add_argument("--enable-javascript")
     chrome_options.add_argument("--font-render-hinting=none")
     chrome_options.add_argument("--headless")
@@ -22,7 +24,7 @@ def blinkit_data(product_name: str, location: str):
     # # Recommended for containerized environments
     chrome_options.add_argument("--no-sandbox")
     # # Overcome limited resource problems
-    # chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-dev-shm-usage")
 
     driver = webdriver.Chrome(options=chrome_options)
     driver.set_window_size(1920, 1080)
