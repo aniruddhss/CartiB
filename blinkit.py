@@ -12,10 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 def blinkit_data(product_name: str, location: str):
     # Setup the WebDriver
     chrome_options = Options()
-    chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-    chrome_options.add_argument("start-maximized")
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chromium/91.0.4472.124 Safari/537.36")
+    chrome_options.add_argument("user-agent= Chromium/91.0.4472.124")
 
     chrome_options.add_argument("--headless")
     # # Required for headless mode on Windows
