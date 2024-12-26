@@ -29,32 +29,32 @@ def blinkit_data(product_name: str, location: str):
 
     try:
         # Open the Blinkit homepage
-        driver.get("https://blinkit.com/")
+        # driver.get("https://blinkit.com/")
 
         # Step 1: Set the location
-        try:
-            location_input = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.NAME, "select-locality")))
-            location_input.click()
+        # try:
+        #     location_input = WebDriverWait(driver, 10).until(
+        #     EC.presence_of_element_located((By.NAME, "select-locality")))
+        #     location_input.click()
 
-            # Type delivery location into the input field
-            location_input.send_keys(location)
-            time.sleep(1)
+        #     # Type delivery location into the input field
+        #     location_input.send_keys(location)
+        #     time.sleep(1)
 
-            # Press the space key to trigger suggestions
-            location_input.send_keys(Keys.SPACE)
-            time.sleep(1)  # Wait for suggestions to load
+        #     # Press the space key to trigger suggestions
+        #     location_input.send_keys(Keys.SPACE)
+        #     time.sleep(1)  # Wait for suggestions to load
 
-            # Select the first suggestion
-            first_suggestion = driver.find_element(
-                By.CSS_SELECTOR, "div.LocationSearchList__LocationLabel-sc-93rfr7-2.FUlwF"
-            )
-            first_suggestion.click()
-            time.sleep(2)  # Wait for location to be set
-        except Exception as e:
-            print("Error selecting location:", e)
-            driver.quit()
-            return product_data  # Return empty list on failure
+        #     # Select the first suggestion
+        #     first_suggestion = driver.find_element(
+        #         By.CSS_SELECTOR, "div.LocationSearchList__LocationLabel-sc-93rfr7-2.FUlwF"
+        #     )
+        #     first_suggestion.click()
+        #     time.sleep(2)  # Wait for location to be set
+        # except Exception as e:
+        #     print("Error selecting location:", e)
+        #     driver.quit()
+        #     return product_data  # Return empty list on failure
 
         # Step 2: Navigate to the product search page
         driver.get(f"https://blinkit.com/s/?q={product_name}")
